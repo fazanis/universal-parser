@@ -19,7 +19,7 @@ class CreateParsersTable extends Migration
             $table->string('url');
             $table->string('title');
             $table->string('text');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->integer('status');
             $table->integer('user_id');
             $table->timestamps();

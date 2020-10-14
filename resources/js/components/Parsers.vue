@@ -148,7 +148,7 @@
                     title:'',
                     text:'',
                     photo:'',
-                    status:'',
+                    status:false,
                 }),
                 parsers:[],
                 edit:true,
@@ -167,14 +167,14 @@
                 $('#openModal').modal('show');
             },
             addNew(){
-                this.form.post('api/parser').then((response)=>{
-                    console.log(response);
-                    // Toast.fire({
-                    //     icon: 'success',
-                    //     title: 'Парсер сохранен'
-                    // })
-                    // Fire.$emit('AfterCreate');
-                    // $('#openModal').modal('hide');
+                console.log(this.form);
+                this.form.post('api/parser').then(()=>{
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Парсер сохранен'
+                    })
+                    Fire.$emit('AfterCreate');
+                    $('#openModal').modal('hide');
                 });
             },
             addUpdate(){

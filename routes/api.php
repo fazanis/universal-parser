@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::apiResources([
-    'parser'=>'Api\ParserController',
-]);
+Route::middleware('auth:api')->group( function () {
+    Route::apiResources([
+        'parser'=>'Api\ParserController',
+    ]);
+    Route::get('countparser','Api\ParserController@countparser');
+});

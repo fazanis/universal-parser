@@ -16,8 +16,10 @@ class ParserController extends Controller
      */
     public function index()
     {
-//        dd(\auth('web'));
-        return Parser::latest()->paginate(20);
+        if(Auth::user()->admin===1){
+            return Parser::latest()->paginate(20);
+        }
+        return Parser::where('user_id',Auth::user()->id)->latest()->paginate(20);
     }
 
     /**
@@ -28,9 +30,14 @@ class ParserController extends Controller
      */
     public function store(Request $request)
     {
-//        $request->request->add(['user_id'=>auth('api')->user()->id]);
-        return auth('api')->user();
-//        return Parser::create($request->except('id'));
+        $this->validate($request,[
+            'name'=>'required',
+            'url'=>'required',
+            'title'=>'required',
+            'text'=>'required',
+        ]);
+        $request->request->add(['user_id'=>auth('api')->user()->id]);
+        return Parser::create($request->except('id'));
     }
 
     /**
@@ -66,5 +73,12 @@ class ParserController extends Controller
     public function destroy($id)
     {
         return Parser::destroy($id);
+    }
+
+    public function countparser(){
+        return response()->json([
+            'countall' => Parser::where('user_id',Auth::user()->id)->count(),
+            'countactiv' => Parser::where('user_id',Auth::user()->id)->where('status',1)->count(),
+        ]);
     }
 }

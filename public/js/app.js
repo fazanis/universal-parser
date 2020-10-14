@@ -1978,9 +1978,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      load: false,
+      allParsers: '',
+      countactiv: ''
+    };
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.getParser();
+  },
+  methods: {
+    getParser: function getParser() {
+      var _this = this;
+
+      this.load = true;
+      axios.get('api/countparser').then(function (response) {
+        _this.allParsers = response.data.countall;
+        _this.countactiv = response.data.countactiv;
+        _this.load = false;
+      });
+    }
   }
 });
 
@@ -2144,7 +2172,7 @@ __webpack_require__.r(__webpack_exports__);
         title: '',
         text: '',
         photo: '',
-        status: ''
+        status: false
       }),
       parsers: [],
       edit: true
@@ -2165,13 +2193,14 @@ __webpack_require__.r(__webpack_exports__);
       $('#openModal').modal('show');
     },
     addNew: function addNew() {
-      this.form.post('api/parser').then(function (response) {
-        console.log(response); // Toast.fire({
-        //     icon: 'success',
-        //     title: 'Парсер сохранен'
-        // })
-        // Fire.$emit('AfterCreate');
-        // $('#openModal').modal('hide');
+      console.log(this.form);
+      this.form.post('api/parser').then(function () {
+        Toast.fire({
+          icon: 'success',
+          title: 'Парсер сохранен'
+        });
+        Fire.$emit('AfterCreate');
+        $('#openModal').modal('hide');
       });
     },
     addUpdate: function addUpdate() {
@@ -42799,156 +42828,215 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-3 col-6" }, [
+        _c(
+          "div",
+          { staticClass: "small-box bg-info" },
+          [
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.load,
+                    expression: "load"
+                  }
+                ],
+                staticClass: "overlay"
+              },
+              [_c("i", { staticClass: "fas fa-3x fa-sync-alt" })]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.allParsers))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Всего парсеров")])
+            ]),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              { staticClass: "small-box-footer", attrs: { to: "/parsers" } },
+              [
+                _vm._v("Подробнее "),
+                _c("i", { staticClass: "fas fa-arrow-circle-right" })
+              ]
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3 col-6" }, [
+        _c(
+          "div",
+          { staticClass: "small-box bg-success" },
+          [
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.load,
+                    expression: "load"
+                  }
+                ],
+                staticClass: "overlay"
+              },
+              [_c("i", { staticClass: "fas fa-3x fa-sync-alt" })]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.countactiv))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Активных парсеров")])
+            ]),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              { staticClass: "small-box-footer", attrs: { to: "/parsers" } },
+              [
+                _vm._v("Подробнее "),
+                _c("i", { staticClass: "fas fa-arrow-circle-right" })
+              ]
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3 col-6" }, [
+        _c("div", { staticClass: "small-box bg-warning" }, [
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.load,
+                  expression: "load"
+                }
+              ],
+              staticClass: "overlay"
+            },
+            [_c("i", { staticClass: "fas fa-3x fa-sync-alt" })]
+          ),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
+          _vm._m(4)
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3 col-6" }, [
+        _c("div", { staticClass: "small-box bg-danger" }, [
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.load,
+                  expression: "load"
+                }
+              ],
+              staticClass: "overlay"
+            },
+            [_c("i", { staticClass: "fas fa-3x fa-sync-alt" })]
+          ),
+          _vm._v(" "),
+          _vm._m(5),
+          _vm._v(" "),
+          _vm._m(6),
+          _vm._v(" "),
+          _vm._m(7)
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("h3", { staticClass: "card-title" }, [
-                _vm._v("Responsive Hover Table")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-tools" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "input-group input-group-sm",
-                    staticStyle: { width: "150px" }
-                  },
-                  [
-                    _c("input", {
-                      staticClass: "form-control float-right",
-                      attrs: {
-                        type: "text",
-                        name: "table_search",
-                        placeholder: "Search"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "input-group-append" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default",
-                          attrs: { type: "submit" }
-                        },
-                        [_c("i", { staticClass: "fas fa-search" })]
-                      )
-                    ])
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body table-responsive p-0" }, [
-              _c("table", { staticClass: "table table-hover text-nowrap" }, [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v("ID")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("User")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Date")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Status")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Reason")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("td", [_vm._v("183")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("John Doe")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("11-7-2014")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("span", { staticClass: "tag tag-success" }, [
-                        _vm._v("Approved")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("219")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Alexander Pierce")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("11-7-2014")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("span", { staticClass: "tag tag-warning" }, [
-                        _vm._v("Pending")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("657")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Bob Doe")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("11-7-2014")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("span", { staticClass: "tag tag-primary" }, [
-                        _vm._v("Approved")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("175")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Mike Doe")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("11-7-2014")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("span", { staticClass: "tag tag-danger" }, [
-                        _vm._v("Denied")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                      )
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "ion ion-bag" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "ion ion-stats-bars" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "inner" }, [
+      _c("h3", [_vm._v("44")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("User Registrations")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "ion ion-person-add" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
+      _vm._v("More info "),
+      _c("i", { staticClass: "fas fa-arrow-circle-right" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "inner" }, [
+      _c("h3", [_vm._v("65")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Unique Visitors")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "ion ion-pie-graph" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
+      _vm._v("More info "),
+      _c("i", { staticClass: "fas fa-arrow-circle-right" })
     ])
   }
 ]

@@ -167,7 +167,6 @@
                 $('#openModal').modal('show');
             },
             addNew(){
-                console.log(this.form);
                 this.form.post('api/parser').then(()=>{
                     Toast.fire({
                         icon: 'success',

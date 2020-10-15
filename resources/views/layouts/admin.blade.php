@@ -208,6 +208,16 @@
                             </p>
                         </router-link>
                     </li>
+                    @can('isAdmin')
+                    <li class="nav-item">
+                        <router-link to="/users" class="nav-link">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <p>
+                                Пользователи
+                            </p>
+                        </router-link>
+                    </li>
+                    @endcan
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

@@ -92,10 +92,12 @@
         methods:{
             getParser(){
                 this.load = true;
+                this.$Progress.start();
                axios.get('api/countparser').then((response)=>{
                     this.allParsers = response.data.countall;
                     this.countactiv = response.data.countactiv;
                    this.load = false;
+                   this.$Progress.finish();
                });
             }
         }
